@@ -94,6 +94,22 @@ def get_final_prediction_from_probabilities(df_preds, default_prediction_value):
     df_preds["predicted"] = df_preds.apply(lambda row: get_predicted(row, default_prediction_value), axis = 1)
     return df_preds
 
+def get_final_prediction_from_probabilities_7d(df_preds, default_prediction_value):
+    """
+    Determine final prediction from individual models predictions (models being 2M, 3M, etc)
+
+    Parameters
+    ----------
+    df_preds : DataFrame with probability predictions
+    default_prediction_value : If no model predicts 1, then choose a default value
+
+    Returns
+    -------
+    df_preds : DataFrame probability predictions as well as final prediction
+    """
+    df_preds["predicted"] = df_preds.apply(lambda row: get_predicted_7d(row, default_prediction_value), axis = 1)
+    return df_preds
+
 def get_predicted(row, default_prediction_value):
     """
     Combine predictions from each model into one final prediction;
