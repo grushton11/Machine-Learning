@@ -78,7 +78,7 @@ def prepare_feature_payment_type(df, payment_method_variable_name):
 
     df[payment_method_variable_name] = df[payment_method_variable_name].apply(lambda x: _payment_type_mapping(x) if x in payment_method_unfiltered else np.nan)
     return payment_method_feature_list
-    
+
 def prepare_feature_preferred_sport(df, preferred_sport_list):
     """
     Only use sports which are predefined in preferred_sport_list
@@ -412,5 +412,5 @@ def save_model_diagnostics(table_name, model_diagnostics):
     cols = ['model', 'model_training_date', 'train_start_date', 'train_end_date', 'training_samples_available', 'total_train_percentage_target_class', 'total_train_samples_target_class', 'total_train_samples_used', 'oob_score', 'model_parameter', 'feature_importance']
     diagnostics_df = diagnostics_df[cols]
 
-    train_model_diagnostics = dataiku.Dataset("train_model_diagnostics")
+    train_model_diagnostics = dataiku.Dataset(table_name)
     train_model_diagnostics.write_with_schema(diagnostics_df)
