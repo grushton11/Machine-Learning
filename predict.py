@@ -135,6 +135,50 @@ def get_predicted(row, default_prediction_value):
         pred = 12
     return pred
 
+def get_predicted_7d(row, default_prediction_value):
+    """
+    Combine predictions from each model into one final prediction;
+    This is done by choosing the lowest model (e.g. M2) where predicted is equal to 1
+    (the lowest to be conservative)
+
+    Parameters
+    ----------
+    row : One row of df_preds
+    default_prediction_value : If no model predicts 1, then choose a default value
+
+    Returns
+    -------
+    pred : One single predicted value (e.g. 4)
+    """
+
+    pred = default_prediction_value
+
+    if row["pred_is_1M"]==1:
+        pred = 1
+    elif row["pred_is_2M"]==1:
+        pred = 2
+    elif row["pred_is_3M"]==1:
+        pred = 3
+    elif row["pred_is_4M"]==1:
+        pred = 4
+    elif row["pred_is_5M"]==1:
+        pred = 5
+    elif row["pred_is_6M"]==1:
+        pred = 6
+    elif row["pred_is_7M"]==1:
+        pred = 7
+    elif row["pred_is_8M"]==1:
+        pred = 8
+    elif row["pred_is_9M"]==1:
+        pred = 9
+    elif row["pred_is_10M"]==1:
+        pred = 10
+    elif row["pred_is_11M"]==1:
+        pred = 11
+    elif row["pred_is_12M_plus"]==1:
+        pred = 12
+    return pred
+
 def join_cust_info_to_preds(df_preds, df):
     """
     Join customer information (customer id, access start date, territory)
