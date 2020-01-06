@@ -61,7 +61,7 @@ def _payment_type_mapping(var_value):
     else:
         return var_value
 
-def prepare_feature_payment_type(df):
+def prepare_feature_payment_type(df, payment_method_variable_name):
     """
     Map payment types (e.g. Bank Transfer and Bank Transfer both to Bank Transfer)
 
@@ -76,9 +76,9 @@ def prepare_feature_payment_type(df):
     payment_method_unfiltered = ['Apple', 'Apple Pay', 'Credit Card', 'CreditCard', 'CreditCardReferenceTransaction', 'BankTransfer', 'Bank Transfer', 'PayPal', 'Amazon', 'Amazon Pay', 'Direct Debit']
     payment_method_feature_list = ['Apple', 'Credit Card', 'Bank Transfer', 'PayPal', 'Amazon', 'Direct Debit']
 
-    df['payment_method'] = df['payment_method'].apply(lambda x: _payment_type_mapping(x) if x in payment_method_unfiltered else np.nan)
+    df[payment_method_variable_name] = df[payment_method_variable_name].apply(lambda x: _payment_type_mapping(x) if x in payment_method_unfiltered else np.nan)
     return payment_method_feature_list
-
+    
 def prepare_feature_preferred_sport(df, preferred_sport_list):
     """
     Only use sports which are predefined in preferred_sport_list
