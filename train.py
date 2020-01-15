@@ -228,7 +228,6 @@ def get_train_data(df_features, synchronization_time_days, model_diagnostics, cl
     return df_features_train, model_diagnostics
 
 def train_rfc_cascade(class_labels_to_train, df_features_train, model_diagnostics):
-    print('TEST FUNCTION')
     """
     Downsample data, train model and output diagnostics into model_diagnostics dict
 
