@@ -228,6 +228,7 @@ def get_train_data(df_features, synchronization_time_days, model_diagnostics, cl
     return df_features_train, model_diagnostics
 
 def train_rfc_cascade(class_labels_to_train, df_features_train, model_diagnostics):
+    print('TEST FUNCTION')
     """
     Downsample data, train model and output diagnostics into model_diagnostics dict
 
@@ -244,7 +245,7 @@ def train_rfc_cascade(class_labels_to_train, df_features_train, model_diagnostic
     """
 
     rfc_models = []
-    for k, target in enumerate(class_labels_to_train):
+    for k, target in enumerate(class_labels_to_train[11:]):
         print("started work on target: " + target)
 
         # class labels to drop
@@ -254,9 +255,19 @@ def train_rfc_cascade(class_labels_to_train, df_features_train, model_diagnostic
         df_features_train_prepared = df_features_train[target]
 
         # Downsample
-        class_weight = df_features_train_prepared[target].sum() / 1.0 / df_features_train_prepared.shape[0]
+        target_label_size = df_features_train_prepared[target].sum()
+        total_size = df_features_train_prepared.shape[0]
+        non_target_rest_size = total_size - target_label_size
+
+        class_weight = target_label_size / 1.0 / total_size
         print("class weight: " + str(class_weight))
-        sample_size = df_features_train_prepared[target].sum()
+
+        # Sample size should be the smaller number of target_label_size and non_target_rest_size
+        if target_label_size < non_target_rest_size:
+            sample_size = target_label_size
+        else:
+            sample_size = non_target_rest_size
+
         df_features_train_sampled = df_features_train_prepared.groupby(target, group_keys=False).apply(lambda group: group.sample(sample_size))
 
         # Output to console
