@@ -244,7 +244,7 @@ def train_rfc_cascade(class_labels_to_train, df_features_train, model_diagnostic
     """
 
     rfc_models = []
-    for k, target in enumerate(class_labels_to_train[11:]):
+    for k, target in enumerate(class_labels_to_train):
         print("started work on target: " + target)
 
         # class labels to drop
