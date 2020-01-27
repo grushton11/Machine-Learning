@@ -9,6 +9,7 @@ import pandas as pd
 import datetime as dt
 import numpy as np
 import dataiku
+from dateutil.parser import parse
 
 def predict_at_proba_threshold(model, X, threshold):
     """
@@ -230,8 +231,8 @@ def add_pred_date_and_inserted_at_to_pred_df(df_ect_12m):
     """
 
     prediction_date = dataiku.get_custom_variables()['calculation_date']
-    df_ect_12m['prediction_date'] = prediction_date
-    df_ect_12m['inserted_at'] = dt.datetime.today().strftime('%Y-%m-%d %H:%M')
+    df_ect_12m['prediction_date'] = parse(prediction_date)
+    df_ect_12m['inserted_at'] = dt.datetime.today()
 
 def save_preds_to_table(df_ect_12m, table_name):
     """

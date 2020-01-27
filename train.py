@@ -180,7 +180,7 @@ def create_dummy_variables(df, vars_list_to_create_dummies):
 
     return df
 
-def get_train_data(df_features, synchronization_time_days, model_diagnostics, class_labels):
+def get_train_data(df_features, synchronization_time_days, model_diagnostics, class_labels, last_model_number=12):
     """
     Get train data for each model (most recent available 12 months) from all training data
 
@@ -200,7 +200,7 @@ def get_train_data(df_features, synchronization_time_days, model_diagnostics, cl
 
     df_features_train = {}
     for k, i in enumerate(class_labels):
-        target_month = 12 - k
+        target_month = last_model_number - k
 
 
         # create end and start period for training
