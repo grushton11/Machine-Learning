@@ -196,7 +196,7 @@ def get_predicted_7d(row, default_prediction_value):
         pred = 12
     return pred
 
-def join_cust_info_to_preds(df_preds, df):
+def join_cust_info_to_preds(df_preds, df, additional_cols = []):
     """
     Join customer information (customer id, access start date, territory)
     onto prediction DataFrame
@@ -211,6 +211,7 @@ def join_cust_info_to_preds(df_preds, df):
     """
 
     identifier_columns = ['cust_account_id', 'access_start_date', 'cust_territory', 'cust_country']
+    identifier_columns = identifier_columns + additional_cols
     prediction_columns = list(df_preds.columns.values)
 
     df_ect_12m = df_preds.join(df[identifier_columns])[identifier_columns + prediction_columns]
