@@ -418,10 +418,11 @@ def save_model_diagnostics(table_name, model_diagnostics):
 
     diagnostics_df = pd.DataFrame(model_diagnostics).transpose()
     diagnostics_df['model_training_date'] = datetime.today().strftime('%Y-%m-%d %H:%M')
+    diagnostics_df['calculation_date'] = dataiku.get_custom_variables()['calculation_date']
 
     diagnostics_df['model'] = diagnostics_df.index
 
-    cols = ['model', 'model_training_date', 'train_actuals_start_date', 'train_actuals_end_date', 'training_time_range_start_date', 'train_time_range_end_date', 'training_samples_available', 'total_train_percentage_target_class', 'total_train_samples_target_class', 'total_train_samples_used', 'oob_score', 'model_parameter', 'feature_importance']
+    cols = ['model', 'calculation_date', 'model_training_date', 'train_actuals_start_date', 'train_actuals_end_date', 'training_time_range_start_date', 'train_time_range_end_date', 'training_samples_available', 'total_train_percentage_target_class', 'total_train_samples_target_class', 'total_train_samples_used', 'oob_score', 'model_parameter', 'feature_importance']
     diagnostics_df = diagnostics_df[cols]
 
     train_model_diagnostics = dataiku.Dataset(table_name)
