@@ -220,8 +220,10 @@ def get_train_data(df_features, synchronization_time_days, model_diagnostics, cl
         df_features_train[i] = df_features_train_sampled
 
         model_diagnostics[i]['training_samples_available'] = df_features_train_sampled.shape[0]
-        model_diagnostics[i]['train_start_date'] = df_features_train_sampled['access_start_date'].min().strftime('%Y-%m-%d')
-        model_diagnostics[i]['train_end_date'] = df_features_train_sampled['access_start_date'].max().strftime('%Y-%m-%d')
+        model_diagnostics[i]['train_actuals_start_date'] = df_features_train_sampled['access_start_date'].min().strftime('%Y-%m-%d')
+        model_diagnostics[i]['train_actuals_end_date'] = df_features_train_sampled['access_start_date'].max().strftime('%Y-%m-%d')
+        model_diagnostics[i]['training_time_range_start_date'] = training_start_date
+        model_diagnostics[i]['train_time_range_end_date'] = training_end_date
 
         print(i + ': train_samples: ' + str(df_features_train_sampled.shape[0]) + '; start_time:', df_features_train_sampled['access_start_date'].min().strftime('%Y-%m-%d'), '; end_time:', df_features_train_sampled['access_start_date'].max().strftime('%Y-%m-%d'))
 
@@ -419,7 +421,7 @@ def save_model_diagnostics(table_name, model_diagnostics):
 
     diagnostics_df['model'] = diagnostics_df.index
 
-    cols = ['model', 'model_training_date', 'train_start_date', 'train_end_date', 'training_samples_available', 'total_train_percentage_target_class', 'total_train_samples_target_class', 'total_train_samples_used', 'oob_score', 'model_parameter', 'feature_importance']
+    cols = ['model', 'model_training_date', 'train_actuals_start_date', 'train_actuals_end_date', 'training_time_range_start_date', 'train_time_range_end_date', 'training_samples_available', 'total_train_percentage_target_class', 'total_train_samples_target_class', 'total_train_samples_used', 'oob_score', 'model_parameter', 'feature_importance']
     diagnostics_df = diagnostics_df[cols]
 
     train_model_diagnostics = dataiku.Dataset(table_name)
