@@ -73,8 +73,8 @@ def prepare_feature_payment_type(df, payment_method_variable_name):
     payment_method_feature_list : List of payment features to use in modelling
     """
 
-    payment_method_unfiltered = ['Apple', 'Apple Pay', 'Credit Card', 'CreditCard', 'CreditCardReferenceTransaction', 'BankTransfer', 'Bank Transfer', 'PayPal', 'Amazon', 'Amazon Pay', 'Direct Debit']
-    payment_method_feature_list = ['Apple', 'Credit Card', 'Bank Transfer', 'PayPal', 'Amazon', 'Direct Debit']
+    payment_method_unfiltered = ['Apple', 'Apple Pay', 'Credit Card', 'CreditCard', 'CreditCardReferenceTransaction', 'BankTransfer', 'Bank Transfer', 'PayPal', 'Amazon', 'Amazon Pay', 'Direct Debit', 'Roku Pay']
+    payment_method_feature_list = ['Apple', 'Credit Card', 'Bank Transfer', 'PayPal', 'Amazon', 'Direct Debit', 'Roku Pay']
 
     df[payment_method_variable_name] = df[payment_method_variable_name].apply(lambda x: _payment_type_mapping(x) if x in payment_method_unfiltered else np.nan)
     return payment_method_feature_list
